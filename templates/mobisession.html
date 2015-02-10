@@ -1,15 +1,28 @@
 <!doctype html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="static/styles.css">
 <title>MobiSession</title>
 </head>
 <body>
+<div id="wrapper">
+<p>
+Welcome to MobiSession. This demo is an experiment with transferring sessions between different devices.
+<h3>Basic usage:</h3>
+<ol>
+	<li>Visit this page on device A (new session is created).</li>
+	<li>Update the session data by entering something into the textbox and pressing  'Save data'.</li>
+	<li>Visit the page on another device (device B). If the device can read QR-codes, feel free to do it. Otherwise visit <a href="/session/{{ session['sid'] }}">/session/{{ session['sid'] }}</a>. Change the data and click the 'Save data'.</li>
+	<li>Refresh the browser on device A. The session has been changed.</li>
+</ol>
+</p>
 <form action="/" method="POST">
 	<input type="text" name="data">
 	<input type="submit" value="Save data">
 </form>
-Id: {{ session['id'] }}<br>
+Session ID: {{ session['sid'] }}<br>
 Data: {{ session['data'] }}<br>
-Param: {{ session_id }}<br>
+<img src="{{ url_for('get_qr') }}">
+</div>
 </body>
 </html>
