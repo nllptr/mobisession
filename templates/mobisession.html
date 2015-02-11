@@ -1,28 +1,51 @@
-<!doctype html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="static/styles.css">
-<title>MobiSession</title>
-</head>
-<body>
-<div id="wrapper">
-<p>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>MobiSession PoC</title>
+
+		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="static/styles.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+	<div class="container">
+		<div class="page-header">
+			<h1>MobiSession <small>Moving your sessions since 2015</small></h1>
+		</div>
 Welcome to MobiSession. This demo is an experiment with transferring sessions between different devices.
-<h3>Basic usage:</h3>
-<ol>
-	<li>Visit this page on device A (new session is created).</li>
-	<li>Update the session data by entering something into the textbox and pressing  'Save data'.</li>
-	<li>Visit the page on another device (device B). If the device can read QR-codes, feel free to do it. Otherwise visit <a href="/session/{{ session['sid'] }}">/session/{{ session['sid'] }}</a>. Change the data and click the 'Save data'.</li>
-	<li>Refresh the browser on device A. The session has been changed.</li>
-</ol>
-</p>
-<form action="/" method="POST">
-	<input type="text" name="data">
-	<input type="submit" value="Save data">
-</form>
-Session ID: {{ session['sid'] }}<br>
-Data: {{ session['data'] }}<br>
-<img src="{{ url_for('get_qr') }}">
-</div>
-</body>
+		<h3>Basic usage:</h3>
+		<ol class="list-group">
+			<li class="list-group-item">1. Visit this page on device A (new session is created).</li>
+			<li class="list-group-item">2. Update the session data by entering something into the textbox and pressing  'Update session'.</li>
+			<li class="list-group-item">3. Visit the page on another device (device B). If the device can read QR-codes, feel free to do it. Otherwise visit <a href="/session/{{ session['sid'] }}">/session/{{ session['sid'] }}</a>. Change the data and click the 'Update session'.</li>
+			<li class="list-group-item">4. Refresh the browser on device A. The session has been changed.</li>
+		</ol>
+
+		<form action="/" method="POST">
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">Session data</span>
+	      <input type="text" class="form-control" name="data" value="{{ session['data'] }}">
+    	  <span class="input-group-btn">
+    	    <button class="btn btn-default" type="submit">Update session</button>
+    	  </span>
+	    </div>
+		</form>
+		<img class="img-responsive" style="margin: 0 auto" src="{{ url_for('get_qr') }}">
+		<p>Session ID: {{ session['sid'] }}</p>
+		<p>Data: {{ session['data'] }}</p>
+	</div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+	</body>
 </html>
